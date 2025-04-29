@@ -280,18 +280,18 @@ int main(int argc, char **argv) {
     cout << R.transpose() << "\n";
 
 
-    //test if sucessfully-reduced
-    fplll::ZZ_mat<mpz_t> fplllB1 = lllmatrix2zzmat(R.transpose());
-    fplll::ZZ_mat<mpz_t> arg_u(fplllB1.get_rows(), fplllB1.get_rows()); // Transformation matrix
-    fplll::ZZ_mat<mpz_t> arg_uinv_t(fplllB1.get_rows(),
-                                    fplllB1.get_rows()); // Inverse transpose of the transformation matrix
-
-
-    fplll::MatGSO<fplll::Z_NR<mpz_t>, fplll::FP_NR<mpfr_t>> M(fplllB1, arg_u, arg_uinv_t, 0);
-    // one on success
-    int ok = fplll::is_lll_reduced(M, fplll::LLL_DEF_DELTA, fplll::LLL_DEF_ETA);
-
-    std::cout << "LLL-reduced? " << (ok? "yes\n":"no\n");
+//    //test if sucessfully-reduced
+//    fplll::ZZ_mat<mpz_t> fplllB1 = lllmatrix2zzmat(R.transpose());
+//    fplll::ZZ_mat<mpz_t> arg_u(fplllB1.get_rows(), fplllB1.get_rows()); // Transformation matrix
+//    fplll::ZZ_mat<mpz_t> arg_uinv_t(fplllB1.get_rows(),
+//                                    fplllB1.get_rows()); // Inverse transpose of the transformation matrix
+//
+//
+//    fplll::MatGSO<fplll::Z_NR<mpz_t>, fplll::FP_NR<mpfr_t>> M(fplllB1, arg_u, arg_uinv_t, 0);
+//    // one on success
+//    int ok = fplll::is_lll_reduced(M, fplll::LLL_DEF_DELTA, fplll::LLL_DEF_ETA);
+//
+//    std::cout << "LLL-reduced? " << (ok? "yes\n":"no\n");
 
     return 0;
 }
