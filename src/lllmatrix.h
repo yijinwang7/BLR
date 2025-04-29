@@ -125,6 +125,7 @@ struct ScalarMPZ
         return os;
     }
 
+
     size_t digits10() const
     {
         size_t minDigits = mpz_sizeinbase(this->value, 10);
@@ -186,5 +187,16 @@ inline ScalarMPZ operator-(const ScalarMPZ &lhs, const ScalarMPZ &rhs)
 
 typedef Eigen::Matrix<ScalarMPZ, Eigen::Dynamic, Eigen::Dynamic> LLLMatrix;
 typedef Eigen::Matrix<ScalarMPZ, Eigen::Dynamic, 1> LLLVector;
+
+inline std::ostream& operator<<(std::ostream &os, const LLLMatrix &M) {
+    //os << M.rows() << " " << M.cols() << "\n";
+    for (int i = 0; i < M.rows(); ++i) {
+        for (int j = 0; j < M.cols(); ++j) {
+            os << M(i, j)
+               << (j + 1 < M.cols() ? ' ' : '\n');
+        }
+    }
+    return os;
+}
 
 #endif // __LLL_MATRIX_H__

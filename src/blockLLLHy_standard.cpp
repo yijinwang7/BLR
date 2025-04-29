@@ -5,16 +5,16 @@ int performReduction(fplll::ZZ_mat<mpz_t> &blocks, const BLR::Config &config, bo
     if (!useHlll) {
         // Standard LLL reduction.
         if (config.lllMethod == BLR::LLLMethod::Fast) {
-            status = lll_reduction(blocks, fplll::LLL_DEF_DELTA, fplll::LLL_DEF_ETA,
+            status = lll_reduction(blocks, config.delta, config.eta,
                                    fplll::LM_FAST, config.getFplllFT(), config.precision, fplll::LLL_DEFAULT);
         } else if (config.lllMethod == BLR::LLLMethod::Wrapper) {
-            status = lll_reduction(blocks, fplll::LLL_DEF_DELTA, fplll::LLL_DEF_ETA,
+            status = lll_reduction(blocks, config.delta, config.eta,
                                    fplll::LM_WRAPPER, config.getFplllFT(), config.precision, fplll::LLL_DEFAULT);
         } else if (config.lllMethod == BLR::LLLMethod::Proved) {
-            status = lll_reduction(blocks, fplll::LLL_DEF_DELTA, fplll::LLL_DEF_ETA,
+            status = lll_reduction(blocks, config.delta, config.eta,
                                    fplll::LM_PROVED, config.getFplllFT(), config.precision, fplll::LLL_DEFAULT);
         } else if (config.lllMethod == BLR::LLLMethod::Heuristic) {
-            status = lll_reduction(blocks, fplll::LLL_DEF_DELTA, fplll::LLL_DEF_ETA,
+            status = lll_reduction(blocks, config.delta, config.eta,
                                    fplll::LM_HEURISTIC, config.getFplllFT(), config.precision, fplll::LLL_DEFAULT);
         } else if (config.lllMethod == BLR::LLLMethod::HKZ) {
             // HKZ reduction doesn't require the extra parameters (like b_size)
@@ -23,16 +23,16 @@ int performReduction(fplll::ZZ_mat<mpz_t> &blocks, const BLR::Config &config, bo
     } else {
         // HLLL reduction.
         if (config.lllMethod == BLR::LLLMethod::Fast) {
-            status = hlll_reduction(blocks, fplll::LLL_DEF_DELTA, fplll::LLL_DEF_ETA,
-                                    fplll::HLLL_DEF_THETA, fplll::HLLL_DEF_C,
+            status = hlll_reduction(blocks, config.delta, config.eta,
+                                    config.theta, fplll::HLLL_DEF_C,
                                     fplll::LM_FAST, config.getFplllFT(), config.precision, fplll::LLL_DEFAULT, false);
         } else if (config.lllMethod == BLR::LLLMethod::Wrapper) {
-            status = hlll_reduction(blocks, fplll::LLL_DEF_DELTA, fplll::LLL_DEF_ETA,
-                                    fplll::HLLL_DEF_THETA, fplll::HLLL_DEF_C,
+            status = hlll_reduction(blocks, config.delta, config.eta,
+                                    config.theta, fplll::HLLL_DEF_C,
                                     fplll::LM_WRAPPER, config.getFplllFT(), config.precision, fplll::LLL_DEFAULT, false);
         } else if (config.lllMethod == BLR::LLLMethod::Proved) {
-            status = hlll_reduction(blocks, fplll::LLL_DEF_DELTA, fplll::LLL_DEF_ETA,
-                                    fplll::HLLL_DEF_THETA, fplll::HLLL_DEF_C,
+            status = hlll_reduction(blocks, config.delta, config.eta,
+                                    config.theta, fplll::HLLL_DEF_C,
                                     fplll::LM_PROVED, config.getFplllFT(), config.precision, fplll::LLL_DEFAULT, false);
         }
     }

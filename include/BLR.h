@@ -58,6 +58,12 @@ namespace BLR {
         LLLMethod lllMethod;     // For LLL/HLLL reductions
         BKZMethod bkzMethod;     // For BKZ-related reductions
 
+        //some parameter used by fplll's lattice reduction
+        double delta;
+        double eta;
+        double theta;
+        bool verbose;
+
         // Constructor with defaults:
         Config()
                 : reductionMethod(ReductionMethod::LLL),
@@ -70,7 +76,12 @@ namespace BLR {
                   customFre(0),
                   //fre(1),
                   lllMethod(LLLMethod::Wrapper),
-                  bkzMethod(BKZMethod::Default)
+                  bkzMethod(BKZMethod::Default),
+                  delta(0.99),
+                  eta(0.51),
+                  theta(0.001),
+                  verbose(false)
+
         {}
         // Helper method to compute effective fre parameter.
         int getFre() const {

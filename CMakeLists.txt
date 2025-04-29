@@ -27,7 +27,7 @@ include_directories("/usr/local/include")
 #add_executable(test_rand_perm bin/test_rand_perm.cpp randomPermutation.cpp utils.cpp)
 
 # Add the executable
-add_executable(c3
+add_executable(BLR
         src/blockLLLHy_standard.cpp
         src/blockLLLHy_standard.h
         src/blockLLLHy_BKZ.cpp
@@ -37,7 +37,8 @@ add_executable(c3
         src/utils.cpp
         include/BLR.h
         src/BLR.cpp
-        test/test.cpp
+        #test/test.cpp
+        test/main.cpp
         #test/test.cpp
 )
 
@@ -45,19 +46,26 @@ add_executable(c3
 
 # Link OpenMP if it was found
 if(OPENMP_FOUND)
-    target_link_libraries(c3 PUBLIC OpenMP::OpenMP_CXX)
+    target_link_libraries(BLR PUBLIC OpenMP::OpenMP_CXX)
 endif()
 
 # Link fplll if it was found
 if(FPLLL_FOUND)
-    target_link_libraries(c3 PUBLIC ${FPLLL_LIBRARIES} gmp
+    target_link_libraries(BLR PUBLIC ${FPLLL_LIBRARIES} gmp
             mpfr)
 else()
     message(SEND_ERROR "fplll not found")
 endif()
 
-target_include_directories(c3 PRIVATE ${PROJECT_SOURCE_DIR}/src)
-target_include_directories(c3 PUBLIC ${PROJECT_SOURCE_DIR}/include)
+target_include_directories(BLR PRIVATE ${PROJECT_SOURCE_DIR}/src)
+target_include_directories(BLR PUBLIC ${PROJECT_SOURCE_DIR}/include)
 
-#using ${PROJECT_SOURCE_DIR} in both cases ensures that your include directories are
-#correctly and consistently located from the root of your project structure.
+
+# Install the CLI into bin/
+install(TARGETS BLR
+        RUNTIME DESTINATION bin)
+
+# Install headers into include/BLRLibrary/
+install(DIRECTORY ${PROJECT_SOURCE_DIR}/include/
+        DESTINATION include/BLRLibrary
+        FILES_MATCHING PATTERN "*.h")
