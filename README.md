@@ -13,7 +13,7 @@ Supports LLL, HLLL, and BKZ variants with customizable floating-point backends a
   - `-K, --bkz-method` choose **`{default, autoabort, slide, sd}`**  
   - `-d, --delta` δ parameter (default: `0.99`)  
   - `-e, --eta` η parameter (default: `0.51`)  
-  - `-t, --theta` θ parameter for BKZ/HKZ (default: `0.001`)  
+  - `-t, --theta` θ parameter for HLLL (default: `0.001`)  
   - `-f, --float` choose **`{double, longdouble, mpfr}`** (default: `mpfr`)  
   - `-p, --precision` default: `0`, needs to be specified if used `mpfr`
   - `-b, --block` number of blocks (default: `5`)  
