@@ -73,7 +73,7 @@ namespace BLR {
                   precision(0), //only need to be specified if use FTType MPFR
                   numBlocks(5),
                   stopCriteria(0.999),
-                  customFre(0),
+                  customFre(5),
                   //fre(1),
                   lllMethod(LLLMethod::Wrapper),
                   bkzMethod(BKZMethod::Default),

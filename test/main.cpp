@@ -13,21 +13,23 @@ using namespace BLR;
 static void print_help(const char* prog) {
     cout << "\nUsage: " << prog << " [options] [input_file]\n\n"
          << "Top‐level algorithm (-a, --algorithm):\n"
-         << "    lll      classical LLL\n"
-         << "    hlll     heuristic LLL\n"
+         << "    lll      L^2\n"
+         << "    hlll     householder LLL\n"
          << "    bkz      BKZ reduction\n\n"
          << "When using LLL/HLLL, you can pick an LLL variant:\n"
-         << "  -L, --lll-method METHOD   wrapper | heuristic | fast | proved | hkz\n\n"
+         << "  -L, --lll-method METHOD   wrapper | heuristic | fast | proved | hkz(not LLL variant, but also a reduction without specifying the b_size)\n\n"
          << "When using BKZ, you can pick a BKZ variant:\n"
          << "  -K, --bkz-method METHOD   default | autoabort | slide | sd\n\n"
          << "General options:\n"
          << "  -d, --delta VAL       Lovász δ (default: 0.99)\n"
-         << "  -e, --eta   VAL       size‐reduction η (default: 0.51)\n"
-         << "  -t, --theta VAL       θ (for BKZ/HKZ blocks, default: 0.001)\n"
-         << "  -f, --float TYPE      double | longdouble | mpfr (default: mpfr)\n"
+         << "  -e, --eta   VAL       size‐reduction eta(default: 0.51)\n"
+         << "  -t, --theta VAL       θ (for BKZ blocks, default: 0.001)\n"
+         << "  -f, --float TYPE      double | dpe | longdouble | mpfr (default: mpfr)\n"
          << "  -p, --precision N     MPFR bits (default: 64)\n"
          << "  -b, --block   N       number of blocks (default: 5)\n"
-         << "  -c, --customfre N     custom swap frequency (default: 0)\n"
+         << "  -c, --customfre N     custom swap frequency (default: 5)\n"
+         << "  -s, --b_size N        block size, used by BKZ (default: 0)\n"
+         << "  -i, --stopping criterion N        \n"
          << "  -v, --verbose         verbose output\n"
          << "  -h, --help            this message\n\n";
 }
@@ -147,7 +149,9 @@ void read_options(int argc, char** argv, Config &cfg, string &input_file) {
             {"float",       required_argument, 0, 'f'},
             {"precision",   required_argument, 0, 'p'},
             {"block",       required_argument, 0, 'b'},
+            {"b_size",      required_argument, 0, 's'},
             {"customfre",   required_argument, 0, 'c'},
+            {"stopCriteria",required_argument, 0, 'i'},
             {"verbose",     no_argument,       0, 'v'},
             {"help",        no_argument,       0, 'h'},
             {0,0,0,0}
@@ -155,7 +159,7 @@ void read_options(int argc, char** argv, Config &cfg, string &input_file) {
 
     // defaults set by Config constructor
     int opt, idx;
-    while ((opt = getopt_long(argc, argv, "a:L:K:d:e:t:f:p:b:c:vh", long_opts, &idx)) != -1) {
+    while ((opt = getopt_long(argc, argv, "a:L:K:d:e:t:f:p:b:i:s:c:vh", long_opts, &idx)) != -1) {
         switch (opt) {
             case 'a': {
                 string alg = optarg;
@@ -211,14 +215,17 @@ void read_options(int argc, char** argv, Config &cfg, string &input_file) {
                 if      (!strcmp(optarg,"mpfr"))       cfg.ftType = FTType::MPFR;
                 else if (!strcmp(optarg,"double"))     cfg.ftType = FTType::Double;
                 else if (!strcmp(optarg,"longdouble")) cfg.ftType = FTType::LongDouble;
+                else if (!strcmp(optarg,"dpe")) cfg.ftType = FTType::DPE;
                 else {
                     cerr<<"Unknown float type: "<<optarg<<"\n"; print_help(argv[0]); exit(1);
                 }
                 break;
             case 'p': cfg.precision = stoi(optarg); break;
             case 'b': cfg.numBlocks = stoi(optarg); break;
+            case 's': cfg.b_size = stoi(optarg); break;
             case 'c': cfg.customFre = stoi(optarg); break;
-            case 'v': cfg.verbose   = true;         break;
+            case 'i': cfg.stopCriteria = stoi(optarg); break;
+            case 'v': cfg.verbose   = false;         break;
             case 'h': print_help(argv[0]);          exit(0);
             default:  print_help(argv[0]);          exit(1);
         }
@@ -277,14 +284,11 @@ int main(int argc, char **argv) {
     }
 
     // Write result to stdout
-    cout << R.transpose() << "\n";
+    //cout << R.transpose() << "\n";
 
 
 //    //test if sucessfully-reduced
-//    fplll::ZZ_mat<mpz_t> fplllB1 = lllmatrix2zzmat(R.transpose());
-//    fplll::ZZ_mat<mpz_t> arg_u(fplllB1.get_rows(), fplllB1.get_rows()); // Transformation matrix
-//    fplll::ZZ_mat<mpz_t> arg_uinv_t(fplllB1.get_rows(),
-//                                    fplllB1.get_rows()); // Inverse transpose of the transformation matrix
+     // Inverse transpose of the transformation matrix
 //
 //
 //    fplll::MatGSO<fplll::Z_NR<mpz_t>, fplll::FP_NR<mpfr_t>> M(fplllB1, arg_u, arg_uinv_t, 0);
@@ -292,6 +296,57 @@ int main(int argc, char **argv) {
 //    int ok = fplll::is_lll_reduced(M, fplll::LLL_DEF_DELTA, fplll::LLL_DEF_ETA);
 //
 //    std::cout << "LLL-reduced? " << (ok? "yes\n":"no\n");
+//
+//    // Test if the matrix reduced by fplll is hLLL reduced
+//    fplll::ZZ_mat<mpz_t> arg_u1(fplllB1.get_rows(), fplllB1.get_rows()); // Transformation matrix
+//    fplll::ZZ_mat<mpz_t> arg_uinv_t1(fplllB1.get_rows(),
+//                                     fplllB1.get_rows()); // Inverse transpose of the transformation matrix
+//
+//
+//    // Initialize the MatGSO object with the matrices and flags
+//    fplll::MatHouseholder<fplll::Z_NR<mpz_t>, fplll::FP_NR<mpfr_t>> M1(fplllB1, arg_u1, arg_uinv_t1, 0);
+//    int isReduced1 = fplll::is_hlll_reduced(M1, fplll::LLL_DEF_DELTA, fplll::LLL_DEF_ETA, fplll::HLLL_DEF_THETA);
+//
+//    if (isReduced1 != fplll::RED_SUCCESS) {
+//        std::cout << "The matrix is not h-LLL reduced by fplll." << std::endl;
+//    } else {
+//        std::cout << "The matrix is h-LLL reduced by fplll." << std::endl;
+//    }
+    // 3a) Test LLL‐reducedness (only valid if config.reductionMethod == LLL)
+    if (config.reductionMethod == BLR::ReductionMethod::LLL) {
+        fplll::ZZ_mat<mpz_t> fplllB1 = lllmatrix2zzmat(R.transpose());
+        fplll::ZZ_mat<mpz_t> arg_u(fplllB1.get_rows(), fplllB1.get_rows()); // Transformation matrix
+        fplll::ZZ_mat<mpz_t> arg_uinv_t(fplllB1.get_rows(),
+                                        fplllB1.get_rows());
+        fplll::MatGSO<fplll::Z_NR<mpz_t>, fplll::FP_NR<mpfr_t>>
+                M(fplllB1, arg_u, arg_uinv_t, /*verbose=*/0);
+        bool ok = fplll::is_lll_reduced(
+                M,
+                fplll::LLL_DEF_DELTA,    // or config.delta
+                fplll::LLL_DEF_ETA       // or config.eta
+        );
+        std::cout << "LLL-reduced? " << (ok ? "yes\n" : "no\n");
+    }
+
+// 3b) Test HLLL‐reducedness (if config.reductionMethod == HLLL)
+    if (config.reductionMethod == BLR::ReductionMethod::HLLL) {
+        fplll::ZZ_mat<mpz_t> fplllB1 = lllmatrix2zzmat(R.transpose());
+        fplll::ZZ_mat<mpz_t> arg_u(fplllB1.get_rows(), fplllB1.get_rows()); // Transformation matrix
+        fplll::ZZ_mat<mpz_t> arg_uinv_t(fplllB1.get_rows(),
+                                        fplllB1.get_rows());
+        fplll::MatHouseholder<fplll::Z_NR<mpz_t>, fplll::FP_NR<mpfr_t>>
+                M(fplllB1, arg_u, arg_uinv_t, /*verbose=*/0);
+        int hstat = fplll::is_hlll_reduced(
+                M,
+                fplll::LLL_DEF_DELTA,
+                fplll::LLL_DEF_ETA,
+                fplll::HLLL_DEF_THETA
+        );
+        if (hstat == fplll::RED_SUCCESS)
+            std::cout << "HLLL-reduced? yes\n";
+        else
+            std::cout << "HLLL-reduced? no\n";
+    }
 
     return 0;
 }

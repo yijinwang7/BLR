@@ -1,6 +1,6 @@
 #include "blockLLLHy_standard.h"
 
-int performReduction(fplll::ZZ_mat<mpz_t> &blocks, const BLR::Config &config, bool useHlll = false) {
+int performReduction(fplll::ZZ_mat<mpz_t> &blocks, const BLR::Config &config, bool useHlll) {
     int status = 0;
     if (!useHlll) {
         // Standard LLL reduction.
@@ -9,7 +9,7 @@ int performReduction(fplll::ZZ_mat<mpz_t> &blocks, const BLR::Config &config, bo
                                    fplll::LM_FAST, config.getFplllFT(), config.precision, fplll::LLL_DEFAULT);
         } else if (config.lllMethod == BLR::LLLMethod::Wrapper) {
             status = lll_reduction(blocks, config.delta, config.eta,
-                                   fplll::LM_WRAPPER, config.getFplllFT(), config.precision, fplll::LLL_DEFAULT);
+                                   fplll::LM_WRAPPER, fplll::FT_DEFAULT, 0, fplll::LLL_DEFAULT);
         } else if (config.lllMethod == BLR::LLLMethod::Proved) {
             status = lll_reduction(blocks, config.delta, config.eta,
                                    fplll::LM_PROVED, config.getFplllFT(), config.precision, fplll::LLL_DEFAULT);
@@ -21,6 +21,12 @@ int performReduction(fplll::ZZ_mat<mpz_t> &blocks, const BLR::Config &config, bo
             status = hkz_reduction(blocks, fplll::HKZ_DEFAULT, config.getFplllFT(), config.precision);
         }
     } else {
+//        std::cerr << "[debug] performReduction: HLLL path, method="
+//                  << static_cast<int>(config.lllMethod)
+//                  << ", delta=" << config.delta
+//                  << ", eta="   << config.eta
+//                  << ", theta=" << config.theta
+//                  << "\n";
         // HLLL reduction.
         if (config.lllMethod == BLR::LLLMethod::Fast) {
             status = hlll_reduction(blocks, config.delta, config.eta,
@@ -29,7 +35,7 @@ int performReduction(fplll::ZZ_mat<mpz_t> &blocks, const BLR::Config &config, bo
         } else if (config.lllMethod == BLR::LLLMethod::Wrapper) {
             status = hlll_reduction(blocks, config.delta, config.eta,
                                     config.theta, fplll::HLLL_DEF_C,
-                                    fplll::LM_WRAPPER, config.getFplllFT(), config.precision, fplll::LLL_DEFAULT, false);
+                                    fplll::LM_WRAPPER, fplll::FT_DEFAULT, 0, fplll::LLL_DEFAULT, false);
         } else if (config.lllMethod == BLR::LLLMethod::Proved) {
             status = hlll_reduction(blocks, config.delta, config.eta,
                                     config.theta, fplll::HLLL_DEF_C,

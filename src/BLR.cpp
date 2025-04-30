@@ -6,7 +6,7 @@
 
 namespace BLR {
     LLLMatrix blockBLRReduction(const LLLMatrix &B, const Config &config) {
-        if (config.reductionMethod == ReductionMethod::LLL) {
+        if (config.reductionMethod == ReductionMethod::LLL||config.reductionMethod == ReductionMethod::HLLL) {
             // For LLL/HLLL/HKZ, call the standard version.
             return blockLLLHy_standard(B, config.numBlocks, config.getFre(), config.getStopCriteria(), config);
         } else if (config.reductionMethod == ReductionMethod::BKZ) {
