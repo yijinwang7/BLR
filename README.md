@@ -15,9 +15,11 @@ Supports LLL, HLLL, and BKZ variants with customizable floating-point backends a
   - `-e, --eta` η parameter (default: `0.51`)  
   - `-t, --theta` θ parameter for BKZ/HKZ (default: `0.001`)  
   - `-f, --float` choose **`{double, longdouble, mpfr}`** (default: `mpfr`)  
-  - `-p, --precision` MPFR bits (default: `64`)  
+  - `-p, --precision` default: `0`, needs to be specified if used `mpfr`
   - `-b, --block` number of blocks (default: `5`)  
-  - `-c, --customfre` custom swap frequency (default: `0`)  
+  - `-c, --customfre` custom swap frequency (default: `0`)
+  - `-s, --b_size` block size for BKZ (default: `0`)  
+  - `-i, --stop_criterion` stopping‐criterion (ratio threshold, default: `0.999`)
   - `-v, --verbose`  
   - `-h, --help`
 
