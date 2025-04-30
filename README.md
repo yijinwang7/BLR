@@ -14,7 +14,7 @@ Supports LLL, HLLL, and BKZ variants with customizable floating-point backends a
   - `-d, --delta` δ parameter (default: `0.99`)  
   - `-e, --eta` η parameter (default: `0.51`)  
   - `-t, --theta` θ parameter for HLLL (default: `0.001`)  
-  - `-f, --float` choose **`{double, longdouble, mpfr}`** (default: `mpfr`)  
+  - `-f, --float` choose **`{double, longdouble, mpfr, dd(double-dobble), qd(quad-double), dpe}`** (default: `mpfr`)  
   - `-p, --precision` default: `0`, needs to be specified if used `mpfr`
   - `-b, --block` number of blocks (default: `5`)  
   - `-c, --customfre` custom swap frequency (default: `1` for wrapper variant, `5` otherwise)
