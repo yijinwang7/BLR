@@ -22,7 +22,7 @@ static void print_help(const char* prog) {
          << "  -K, --bkz-method METHOD   default | autoabort | slide | sd\n\n"
          << "General options:\n"
          << "  -d, --delta VAL       Lovász δ (default: 0.99)\n"
-         << "  -e, --eta   VAL       size‐reduction eta(default: 0.51)\n"
+         << u8"  -e, --eta   VAL       size‐reduction \u03B7(default: 0.51)\n"
          << "  -t, --theta VAL       θ (for HLLL, default: 0.001)\n"
          << "  -f, --float TYPE      double | dpe | longdouble | mpfr (default: mpfr)\n"
          << "  -p, --precision N     MPFR bits (default: 0)\n"
