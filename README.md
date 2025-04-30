@@ -94,7 +94,7 @@ BLR -a hlll \
     matrix.txt
 ```
 
-5. wrapper LLL in MPFR (256-bit)
+5. wrapper LLL
 ```bash
 BLR -a lll \
     -L wrapper \
