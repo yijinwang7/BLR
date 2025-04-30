@@ -38,7 +38,6 @@ Supports LLL, HLLL, and BKZ variants with customizable floating-point backends a
 - [Eigen](https://eigen.tuxfamily.org/)  
 - [GMP](https://gmplib.org/) & [MPFR](https://www.mpfr.org/)  
 - [fplll](https://github.com/fplll/fplll) (headers & library)  
-- OpenMP (optional, for parallel routines)
 
 ---
 
