@@ -45,57 +45,75 @@ Supports LLL, HLLL, and BKZ variants with customizable floating-point backends a
 
 ## Building & Installation
 
+1. Clone the repo
 ```bash
-## 1. Clone the repo
 git clone https://github.com/yijinwang7/BLRLibrary.git
 cd BLRLibrary
+```
 
-## 2. Create & enter a build folder
-mkdir build && cd build
+3. Create & enter a build folder
+```bash
+mkdir build
+cd build
+```
 
-## 3. Configure & compile
+5. Configure & compile
+```bash
 cmake ..
-make 
+make
+``` 
 
-## 4. (Optional) Install to /usr/local
+7. (Optional) Install to /usr/local
+```bash
 sudo make install
-
+```
 ---
+
 ## Usage Examples
 
 > **Note:** the **`wrapper`** method (LLL or HLLL) automatically selects an appropriate precision—**omit** `-f` and `-p` when using `wrapper`.
 
 ---
+
+1. Fast LLL in double-precision
 ```bash
-### 1. Fast LLL in double-precision
 BLR -a lll \
     -L fast \
     -f double \
     -p 0 \
     matrix.txt
+```
 
 
-### 2. Proved HLLL in MPFR (256-bit)
+3. Proved HLLL in MPFR (256-bit)
+```bash
 BLR -a hlll \
     -L proved \
     -f mpfr \
     -p 256 \
     matrix.txt
+```
 
-### 3. wrapper LLL in MPFR (256-bit)
+5. wrapper LLL in MPFR (256-bit)
+```bash
 BLR -a lll \
     -L wrapper \
     matrix.txt
+```
 
-### 4. BKZ Reduction (autoabort, block-size = 10)
+7. BKZ Reduction (autoabort, block-size = 10)
+```bash
 BLR -a bkz \
     -K autoabort \
     -s 10 \
     matrix.txt
+```
 
-### 5. Piping from latticegen
+9. Piping from latticegen
+```bash
 latticegen u 40 30 \
   | BLR -a lll -L wrapper \
   > reduced_basis.txt
+```
 
 
