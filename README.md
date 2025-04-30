@@ -61,13 +61,13 @@ make
 sudo make install
 
 ---
-## **Usage Examples**
+## Usage Examples
 
 > **Note:** the **`wrapper`** method (LLL or HLLL) automatically selects an appropriate precision—**omit** `-f` and `-p` when using `wrapper`.
 
 ---
 
-### 1. Fast LLL in double-precision
+# 1. Fast LLL in double-precision
 
 BLR -a lll \
     -L fast \
@@ -76,7 +76,7 @@ BLR -a lll \
     matrix.txt
 
 
-### 2. Proved HLLL in MPFR (256-bit)
+# 2. Proved HLLL in MPFR (256-bit)
 
 BLR -a hlll \
     -L proved \
@@ -84,18 +84,18 @@ BLR -a hlll \
     -p 256 \
     matrix.txt
 
-### 3. wrapper LLL in MPFR (256-bit)
+# 3. wrapper LLL in MPFR (256-bit)
 BLR -a lll \
     -L wrapper \
     matrix.txt
 
-### 4. BKZ Reduction (autoabort, block-size = 10)
+# 4. BKZ Reduction (autoabort, block-size = 10)
 BLR -a bkz \
     -K autoabort \
     -s 10 \
     matrix.txt
 
-### 5. Piping from latticegen
+# 5. Piping from latticegen
 latticegen u 40 30 \
   | BLR -a lll -L wrapper \
   > reduced_basis.txt
