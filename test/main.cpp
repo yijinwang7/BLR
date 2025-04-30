@@ -216,6 +216,8 @@ void read_options(int argc, char** argv, Config &cfg, string &input_file) {
                 else if (!strcmp(optarg,"double"))     cfg.ftType = FTType::Double;
                 else if (!strcmp(optarg,"longdouble")) cfg.ftType = FTType::LongDouble;
                 else if (!strcmp(optarg,"dpe")) cfg.ftType = FTType::DPE;
+                else if (!strcmp(optarg,"dd")) cfg.ftType = FTType::DD;
+                else if (!strcmp(optarg,"qd")) cfg.ftType = FTType::QD;
                 else {
                     cerr<<"Unknown float type: "<<optarg<<"\n"; print_help(argv[0]); exit(1);
                 }
