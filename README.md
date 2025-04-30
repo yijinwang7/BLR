@@ -61,8 +61,7 @@ make
 sudo make install
 
 ---
-
-## Usage Examples
+## **Usage Examples**
 
 > **Note:** the **`wrapper`** method (LLL or HLLL) automatically selects an appropriate precision—**omit** `-f` and `-p` when using `wrapper`.
 
