@@ -23,13 +23,13 @@ static void print_help(const char* prog) {
          << "General options:\n"
          << "  -d, --delta VAL       Lovász δ (default: 0.99)\n"
          << "  -e, --eta   VAL       size‐reduction eta(default: 0.51)\n"
-         << "  -t, --theta VAL       θ (for BKZ blocks, default: 0.001)\n"
+         << "  -t, --theta VAL       θ (for HLLL, default: 0.001)\n"
          << "  -f, --float TYPE      double | dpe | longdouble | mpfr (default: mpfr)\n"
-         << "  -p, --precision N     MPFR bits (default: 64)\n"
+         << "  -p, --precision N     MPFR bits (default: 0)\n"
          << "  -b, --block   N       number of blocks (default: 5)\n"
-         << "  -c, --customfre N     custom swap frequency (default: 5)\n"
+         << "  -c, --customfre N     custom swap frequency (default: 1 for wrapper variant, 5 otherwise)\n"
          << "  -s, --b_size N        block size, used by BKZ (default: 0)\n"
-         << "  -i, --stopping criterion N        \n"
+         << "  -i, --stopCriteria N  stopping‐criterion(default: 0.99 for wrapper variant, 0.999 otherwise)\n"
          << "  -v, --verbose         verbose output\n"
          << "  -h, --help            this message\n\n";
 }
