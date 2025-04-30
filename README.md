@@ -46,18 +46,18 @@ Supports LLL, HLLL, and BKZ variants with customizable floating-point backends a
 ## Building & Installation
 
 ```bash
-### 1. Clone the repo
+## 1. Clone the repo
 git clone https://github.com/yijinwang7/BLRLibrary.git
 cd BLRLibrary
 
-### 2. Create & enter a build folder
+## 2. Create & enter a build folder
 mkdir build && cd build
 
-### 3. Configure & compile
+## 3. Configure & compile
 cmake ..
 make 
 
-### 4. (Optional) Install to /usr/local
+## 4. (Optional) Install to /usr/local
 sudo make install
 
 ---
@@ -66,9 +66,8 @@ sudo make install
 > **Note:** the **`wrapper`** method (LLL or HLLL) automatically selects an appropriate precision—**omit** `-f` and `-p` when using `wrapper`.
 
 ---
-
+```bash
 ### 1. Fast LLL in double-precision
-
 BLR -a lll \
     -L fast \
     -f double \
