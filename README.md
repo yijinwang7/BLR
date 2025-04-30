@@ -17,9 +17,9 @@ Supports LLL, HLLL, and BKZ variants with customizable floating-point backends a
   - `-f, --float` choose **`{double, longdouble, mpfr}`** (default: `mpfr`)  
   - `-p, --precision` default: `0`, needs to be specified if used `mpfr`
   - `-b, --block` number of blocks (default: `5`)  
-  - `-c, --customfre` custom swap frequency (default: `0`)
+  - `-c, --customfre` custom swap frequency (default: `1` for wrapper variant, `5` otherwise)
   - `-s, --b_size` block size for BKZ (default: `0`)  
-  - `-i, --stop_criterion` stopping‐criterion (ratio threshold, default: `0.999`)
+  - `-i, --stop_criterion` stopping‐criterion (ratio threshold, default: `0.99` for wrapper variant, `0.999` otherwise)
   - `-v, --verbose`  
   - `-h, --help`
 
