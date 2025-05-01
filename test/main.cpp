@@ -328,7 +328,7 @@ int main(int argc, char **argv) {
                 fplll::LLL_DEF_DELTA,    // or config.delta
                 fplll::LLL_DEF_ETA       // or config.eta
         );
-        std::cout << "LLL-reduced? " << (ok ? "yes\n" : "no\n");
+        cerr << "LLL-reduced? " << (ok ? "yes\n" : "no\n");
     }
 
 // 3b) Test HLLL‐reducedness (if config.reductionMethod == HLLL)
@@ -346,9 +346,9 @@ int main(int argc, char **argv) {
                 fplll::HLLL_DEF_THETA
         );
         if (hstat == fplll::RED_SUCCESS)
-            std::cout << "HLLL-reduced? yes\n";
+            cerr << "HLLL-reduced? yes\n";
         else
-            std::cout << "HLLL-reduced? no\n";
+            cerr << "HLLL-reduced? no\n";
     }
 
     return 0;
