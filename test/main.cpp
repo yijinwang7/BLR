@@ -272,7 +272,7 @@ int main(int argc, char **argv) {
              << "  delta     = " << config.delta     << "\n"
              << "  eta       = " << config.eta       << "\n"
              << "  precision = " << config.precision << " bits\n"
-             << "  blocks    = " << config.b_size    << "\n"
+             << "  blocks    = " << config.numBlocks << "\n"
              << "  customFre = " << config.customFre << "\n"
              << endl;
     }
