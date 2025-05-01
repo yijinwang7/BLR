@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Path to your BLR executable
+# Path to BLR executable, may be re-adjusted according to the build path
 BLR_CMD="./cmake-build-debug/BLR"
 
 # Loop over the six latticegen types
