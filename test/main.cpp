@@ -273,7 +273,8 @@ int main(int argc, char **argv) {
              << "  eta       = " << config.eta       << "\n"
              << "  precision = " << config.precision << " bits\n"
              << "  blocks    = " << config.numBlocks << "\n"
-             << "  customFre = " << config.customFre << "\n"
+             << "  customFre = " << config.getFre() << "\n"
+             << "  stopping criterion    = " << config.getStopCriteria() << "\n"
              << endl;
     }
 
