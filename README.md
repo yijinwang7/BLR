@@ -71,42 +71,23 @@ sudo make install
 
 ## Usage Examples
 
-> **Note:** the **`wrapper`** method (LLL or HLLL) automatically selects an appropriate precision—**omit** `-f` and `-p` when using `wrapper`.
+> **Note:** the **`wrapper`** method (LLL or HLLL) automatically selects an appropriate precision—**omit** `-f` and `-p` when using `wrapper`. Also, the output basis is the row basis. 
 
 ---
 
 1. Fast LLL in double-precision
 ```bash
-./BLR -a lll \
-    -L fast \
-    -f double \
-    -p 0 \
-    matrix.txt
+./BLR -a lll -L fast -f double -p 0 matrix.txt
 ```
 
-
-3. Proved HLLL in MPFR (256-bit)
+5. wrapper HLLL
 ```bash
-./BLR -a hlll \
-    -L proved \
-    -f mpfr \
-    -p 256 \
-    matrix.txt
-```
-
-5. wrapper LLL
-```bash
-./BLR -a lll \
-    -L wrapper \
-    matrix.txt
+./BLR -a lll -L wrapper matrix.txt
 ```
 
 7. BKZ Reduction (autoabort, block-size = 10)
 ```bash
-./BLR -a bkz \
-    -K autoabort \
-    -s 10 \
-    matrix.txt
+./BLR -a bkz -K autoabort -s 10 matrix.txt
 ```
 
 9. Piping from latticegen
