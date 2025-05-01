@@ -47,7 +47,7 @@ Supports LLL, HLLL, and BKZ variants with customizable floating-point backends a
 
 1. Clone the repo
 ```bash
-git clone https://github.com/yijinwang7/BLRLibrary.git
+git clone https://github.com/yijinwang7/BLR.git
 cd BLRLibrary
 ```
 
