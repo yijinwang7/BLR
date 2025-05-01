@@ -71,29 +71,31 @@ sudo make install
 
 ## Usage Examples
 
-> **Note:** the **`wrapper`** method (LLL or HLLL) automatically selects an appropriate precision—**omit** `-f` and `-p` when using `wrapper`. Also, the output basis is the row basis. 
+Assuming you have installed **BLR** (for example with `sudo make install`), the `BLR` command will be on your `PATH`. Here are some common workflows:
+
+> **Note:** the **`wrapper`** method (for LLL or HLLL) automatically picks an appropriate precision—**omit** `-f` and `-p` when using `wrapper`. Also, the output basis is the row basis.
 
 ---
 
 1. Fast LLL in double-precision
 ```bash
-./BLR -a lll -L fast -f double -p 0 matrix.txt
+BLR -a lll -L fast -f double -p 0 matrix.txt
 ```
 
 5. wrapper HLLL
 ```bash
-./BLR -a lll -L wrapper matrix.txt
+BLR -a lll -L wrapper matrix.txt
 ```
 
 7. BKZ Reduction (autoabort, block-size = 10)
 ```bash
-./BLR -a bkz -K autoabort -s 10 matrix.txt
+BLR -a bkz -K autoabort -s 10 matrix.txt
 ```
 
 9. Piping from latticegen
 ```bash
 latticegen u 40 30 \
-  | ./BLR -a lll -L wrapper \
+  | BLR -a lll -L wrapper \
   > reduced_basis.txt
 ```
 
