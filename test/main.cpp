@@ -274,7 +274,7 @@ int main(int argc, char **argv) {
              << "  precision = " << config.precision << " bits\n"
              << "  blocks    = " << config.numBlocks << "\n"
              << "  customFre = " << config.getFre() << "\n"
-             << "  stopping criterion    = " << config.getStopCriteria() << "\n"
+             << "  stopping criterion = " << config.getStopCriteria() << "\n"
              << endl;
     }
 
