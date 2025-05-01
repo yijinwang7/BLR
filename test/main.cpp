@@ -316,7 +316,7 @@ int main(int argc, char **argv) {
 //        std::cout << "The matrix is h-LLL reduced by fplll." << std::endl;
 //    }
     // 3a) Test LLL‐reducedness (only valid if config.reductionMethod == LLL)
-    if (config.reductionMethod == BLR::ReductionMethod::LLL) {
+    if (config.reductionMethod == BLR::ReductionMethod::LLL && config.lllMethod != BLR::LLLMethod::HKZ) {
         fplll::ZZ_mat<mpz_t> fplllB1 = lllmatrix2zzmat(R.transpose());
         fplll::ZZ_mat<mpz_t> arg_u(fplllB1.get_rows(), fplllB1.get_rows()); // Transformation matrix
         fplll::ZZ_mat<mpz_t> arg_uinv_t(fplllB1.get_rows(),
