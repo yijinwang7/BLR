@@ -286,7 +286,7 @@ int main(int argc, char **argv) {
     }
 
     // Write result to stdout
-    //cout << R.transpose() << "\n";
+    cout << R.transpose() << "\n";
 
 
 //    //test if sucessfully-reduced
