@@ -227,7 +227,7 @@ void read_options(int argc, char** argv, Config &cfg, string &input_file) {
             case 's': cfg.b_size = stoi(optarg); break;
             case 'c': cfg.customFre = stoi(optarg); break;
             case 'i': cfg.stopCriteria = stoi(optarg); break;
-            case 'v': cfg.verbose   = false;         break;
+            case 'v': cfg.verbose   = true;         break;
             case 'h': print_help(argv[0]);          exit(0);
             default:  print_help(argv[0]);          exit(1);
         }
