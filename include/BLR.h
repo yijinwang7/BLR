@@ -73,7 +73,7 @@ namespace BLR {
                   precision(0), //only need to be specified if use FTType MPFR
                   numBlocks(5),
                   stopCriteria(0.999),
-                  customFre(5),
+                  customFre(0),
                   //fre(1),
                   lllMethod(LLLMethod::Wrapper),
                   bkzMethod(BKZMethod::Default),
@@ -89,7 +89,7 @@ namespace BLR {
             if (customFre > 0)
                 return customFre;
             // Otherwise, if we're in LLL mode, use 1 for the Wrapper variant.
-            if (reductionMethod == ReductionMethod::LLL)
+            if (reductionMethod == ReductionMethod::LLL || reductionMethod == ReductionMethod::HLLL)
                 return (lllMethod == LLLMethod::Wrapper) ? 1 : numBlocks;
                 // For BKZ mode, we always use numBlocks.
             else if (reductionMethod == ReductionMethod::BKZ)
@@ -98,7 +98,7 @@ namespace BLR {
             return numBlocks;
         }
         double getStopCriteria() const{
-            if (reductionMethod == ReductionMethod::LLL)
+            if (reductionMethod == ReductionMethod::LLL || reductionMethod == ReductionMethod::HLLL)
                 return (lllMethod == LLLMethod::Wrapper) ? 0.99 : stopCriteria;
                 // For BKZ mode, we always use 0.999 as default.
             else if (reductionMethod == ReductionMethod::BKZ)
