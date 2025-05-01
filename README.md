@@ -47,8 +47,8 @@ Supports LLL, HLLL, and BKZ variants with customizable floating-point backends a
 
 1. Clone the repo
 ```bash
-git clone https://github.com/yijinwang7/BLRLibrary.git
-cd BLRLibrary
+git clone https://github.com/yijinwang7/BLR.git
+cd BLR
 ```
 
 3. Create & enter a build folder
@@ -77,7 +77,7 @@ sudo make install
 
 1. Fast LLL in double-precision
 ```bash
-BLR -a lll \
+./BLR -a lll \
     -L fast \
     -f double \
     -p 0 \
@@ -87,7 +87,7 @@ BLR -a lll \
 
 3. Proved HLLL in MPFR (256-bit)
 ```bash
-BLR -a hlll \
+./BLR -a hlll \
     -L proved \
     -f mpfr \
     -p 256 \
@@ -96,14 +96,14 @@ BLR -a hlll \
 
 5. wrapper LLL
 ```bash
-BLR -a lll \
+./BLR -a lll \
     -L wrapper \
     matrix.txt
 ```
 
 7. BKZ Reduction (autoabort, block-size = 10)
 ```bash
-BLR -a bkz \
+./BLR -a bkz \
     -K autoabort \
     -s 10 \
     matrix.txt
@@ -112,7 +112,7 @@ BLR -a bkz \
 9. Piping from latticegen
 ```bash
 latticegen u 40 30 \
-  | BLR -a lll -L wrapper \
+  | ./BLR -a lll -L wrapper \
   > reduced_basis.txt
 ```
 
