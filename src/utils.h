@@ -1,3 +1,7 @@
+// Copyright (c) 2025 Yijin Wang
+// This software is released under the MIT License.
+// https://opensource.org/licenses/MIT
+
 #ifndef __LLL_REDUCTION_UTILS_H__
 #define __LLL_REDUCTION_UTILS_H__
 
