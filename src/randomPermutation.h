@@ -1,3 +1,6 @@
+// Copyright (c) 2025 Yijin Wang
+// This software is released under the MIT License.
+// https://opensource.org/licenses/MIT
 
 #ifndef LINEARSYSTEMSOLVER_RANDOMPERMUTATION_H
 #define LINEARSYSTEMSOLVER_RANDOMPERMUTATION_H
