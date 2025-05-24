@@ -1,6 +1,7 @@
 // Copyright (c) 2025 Yijin Wang
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
+
 #include "blockLLLHy_BKZ.h"
 
 static int performBKZReduction(fplll::ZZ_mat<mpz_t> &blocks, int sub_size, const BLR::Config &config) {
