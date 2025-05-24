@@ -1,3 +1,7 @@
+// Copyright (c) 2025 Yijin Wang
+// This software is released under the MIT License.
+// https://opensource.org/licenses/MIT
+
 #include "blockLLLHy_standard.h"
 
 int performReduction(fplll::ZZ_mat<mpz_t> &blocks, const BLR::Config &config, bool useHlll) {
