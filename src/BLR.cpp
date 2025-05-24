@@ -1,3 +1,7 @@
+// Copyright (c) 2025 Yijin Wang
+// This software is released under the MIT License.
+// https://opensource.org/licenses/MIT
+
 #include "BLR.h"
 #include "blockLLLHy_BKZ.h"  // Ensure this header declares both versions.
 #include "blockLLLHy_standard.h"
