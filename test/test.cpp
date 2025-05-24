@@ -1,3 +1,7 @@
+// Copyright (c) 2025 Yijin Wang
+// This software is released under the MIT License.
+// https://opensource.org/licenses/MIT
+
 #include "BLR.h"
 #include <fplll.h>
 #include <Eigen/Dense>
