@@ -51,19 +51,19 @@ git clone https://github.com/yijinwang7/BLR.git
 cd BLR
 ```
 
-3. Create & enter a build folder
+2. Create & enter a build folder
 ```bash
 mkdir build
 cd build
 ```
 
-5. Configure & compile
+3. Configure & compile
 ```bash
 cmake ..
 make
 ``` 
 
-7. (Optional) Install to /usr/local
+4. (Optional) Install to /usr/local
 ```bash
 sudo make install
 ```
@@ -82,17 +82,17 @@ Assuming you have installed **BLR** (for example with `sudo make install`), the 
 BLR -a lll -L fast -f double -p 0 matrix.txt
 ```
 
-5. wrapper HLLL
+2. wrapper HLLL
 ```bash
 BLR -a lll -L wrapper matrix.txt
 ```
 
-7. BKZ Reduction (autoabort, block-size = 10)
+3. BKZ Reduction (autoabort, block-size = 10)
 ```bash
 BLR -a bkz -K autoabort -s 10 matrix.txt
 ```
 
-9. Piping from latticegen
+4. Piping from latticegen
 ```bash
 latticegen u 40 30 \
   | BLR -a lll -L wrapper \
